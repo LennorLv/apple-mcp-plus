@@ -10,6 +10,22 @@ This project is derived from [supermemoryai/apple-mcp](https://github.com/superm
 
 It retains the original MIT license and copyright notice. See [project origin](PROJECT_ORIGIN.md). Thank you to the original author and upstream contributors for making Apple MCP available as open source.
 
+## Main changes from upstream
+
+This independently maintained version focuses on dependable local queries, explicit permissions and traceable verification:
+
+| Area | Changes in Apple MCP Plus |
+| --- | --- |
+| Query correctness | Repaired account/mailbox handling, received-date filtering and bounded body search in Mail; added recent-note sorting and folder/date filters; use actual reminder completion states and retain all contact phone numbers. Failures are reported rather than turned into successful empty results. |
+| Notes checklists | Added read-only decoding of locally saved native checklist states alongside plaintext task markers. Unreadable states are reported explicitly; the interface does not guess whether an item is checked. |
+| Native Reminders / Calendar reads | Added a signed Swift EventKit helper with container enumeration, exact native IDs, completion/date scopes and recurring-event reads. Native reads are selected explicitly; existing create/open methods remain JXA. |
+| Permissions and errors | Added `status` / `diagnose` to every tool and explicit EventKit `authorize` methods. Distinguish Automation, EventKit and database readability; report native timeouts/cancellation and avoid automatic backend fallback. |
+| Write, open and send handling | Hardened literal text, recipient validation, timezone/all-day event handling and opening the intended item. Message scheduling validates timer limits and documents its process-lifetime requirement; submission is distinguished from delivery. |
+| Desktop behavior | Removed Maps, its runtime/schema registration and desktop automation. Remaining runtime paths have no mouse simulation or Accessibility UI control; reminder/calendar opening and Mail sending can still show windows. |
+| Testing and maintenance | Added synthetic regressions, Node/Bun MCP inventory checks, native protocol/self-tests, declarative test coverage and opt-in real read-only verification. Established the Apple MCP Plus identity, a reproducible lockfile and bilingual documentation; personal acceptance logs and old bundles stay outside public Git history. |
+
+Current verification and remaining limits are recorded in [VERIFICATION.md](VERIFICATION.md). Native Notes states can be partially unavailable, and lock-screen behavior and all acceptance variants have not been fully verified.
+
 ## Tools and methods
 
 Use MCP `tools/list` to discover schemas and `tools/call` to invoke a tool. Most tools select a method with `arguments.operation`. Contacts lists records when `name` is omitted and searches when it is supplied; `list` and `search` are behaviors, not Contacts operation values.
