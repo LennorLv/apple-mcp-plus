@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>CFBundleIdentifier</key><string>io.apple-mcp.eventkit-helper</string>
+<key>CFBundleName</key><string>Apple MCP Plus EventKit Helper</string>
+<key>CFBundleVersion</key><string>1</string>
+<key>NSCalendarsFullAccessUsageDescription</key><string>Read calendars for explicitly requested Apple MCP queries.</string>
+<key>NSRemindersFullAccessUsageDescription</key><string>Read reminders for explicitly requested Apple MCP queries.</string>
+<key>NSCalendarsUsageDescription</key><string>Read calendars for Apple MCP.</string>
+<key>NSRemindersUsageDescription</key><string>Read reminders for Apple MCP.</string>
+<key>NSAppleEventsUsageDescription</key><string>Check Apple MCP automation access without requesting permission.</string>
+</dict></plist>

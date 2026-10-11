@@ -1,0 +1,78 @@
+{
+  "name": "apple-mcp-plus",
+  "version": "1.0.0",
+  "module": "index.ts",
+  "type": "module",
+  "description": "Apple MCP Plus: local macOS tools for Contacts, Notes, Messages, Mail, Reminders and Calendar",
+  "author": "LennorLv",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "apple",
+    "contacts",
+    "notes",
+    "messages",
+    "mail",
+    "claude"
+  ],
+  "bin": {
+    "apple-mcp-plus": "./dist/index.js"
+  },
+  "files": [
+    "dist/index.js",
+    "dist/eventkit-helper",
+    "utils",
+    "native",
+    "script",
+    "README.md",
+    "README.zh-CN.md",
+    "PROJECT_ORIGIN.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "dev": "bun run index.ts",
+    "build": "bun build index.ts --outfile=dist/index.js --target=node --minify && npm run build:native",
+    "build:native": "./script/build-eventkit.sh",
+    "start": "node dist/index.js",
+    "prepublishOnly": "bun run build",
+    "test": "bun test tests/query-regression.test.ts tests/notes-checklist.test.ts tests/eventkit.test.ts tests/mcp-inventory.test.ts",
+    "test:eventkit": "bun test tests/eventkit.test.ts && ./dist/eventkit-helper --self-test",
+    "test:queries": "bun test tests/query-regression.test.ts tests/notes-checklist.test.ts",
+    "test:watch": "bun test tests/query-regression.test.ts --watch",
+    "test:plan": "bun tests/acceptance/validate-plan.ts",
+    "test:inventory": "bun test tests/mcp-inventory.test.ts",
+    "verify:readonly": "node script/verify-readonly.mjs",
+    "verify:readonly:bun": "node script/verify-readonly.mjs --bun"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "^22.13.4"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.8",
+    "@jxa/global-type": "^1.3.6",
+    "@jxa/run": "^1.3.6",
+    "@modelcontextprotocol/sdk": "^1.5.0",
+    "@types/express": "^5.0.0",
+    "mcp-proxy": "^2.4.0",
+    "run-applescript": "^7.0.0",
+    "zod": "^3.24.2"
+  },
+  "contributors": [
+    {
+      "name": "Dhravya Shah",
+      "url": "https://github.com/dhravya"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LennorLv/apple-mcp-plus.git"
+  },
+  "homepage": "https://github.com/LennorLv/apple-mcp-plus#readme",
+  "bugs": {
+    "url": "https://github.com/LennorLv/apple-mcp-plus/issues"
+  }
+}

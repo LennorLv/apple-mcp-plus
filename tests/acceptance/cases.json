@@ -1,0 +1,890 @@
+{
+  "version": 1,
+  "designedOn": "2026-10-10",
+  "timezone": "Asia/Shanghai",
+  "scope": "Apple MCP Plus: 25 active behavior cases, Maps removed",
+  "transport": "SDK Client -> stdio -> node dist/index.js -> Apple apps",
+  "placeholderPolicy": "Bind ${...} using verified fixtures before execution; never send placeholders as actual addresses.",
+  "cases": [
+    {
+      "id": "CON-01",
+      "tool": "contacts",
+      "behavior": "list",
+      "kind": "read",
+      "call": {
+        "name": "contacts",
+        "arguments": {}
+      },
+      "setup": "建立至少两条本轮联系人并独立保存姓名/号码基线",
+      "steps": [
+        "MCP 列出",
+        "按测试标记找已知联系人",
+        "独立比对号码集合"
+      ],
+      "expected": [
+        "受控联系人存在",
+        "姓名及全部号码吻合",
+        "无占位结果"
+      ],
+      "requiredVariants": [
+        "中文姓名",
+        "多号码",
+        "无号码联系人",
+        "权限失败"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CON-02",
+      "tool": "contacts",
+      "behavior": "search",
+      "kind": "read",
+      "call": {
+        "name": "contacts",
+        "arguments": {
+          "name": "${CONTACT_NAME}"
+        }
+      },
+      "setup": "受控联系人包含重名及部分名称样本",
+      "steps": [
+        "按全名查询",
+        "部分名称再次查询",
+        "与基线集合核对"
+      ],
+      "expected": [
+        "找到预期号码",
+        "无匹配与错误可区分"
+      ],
+      "requiredVariants": [
+        "全名",
+        "部分名",
+        "中文",
+        "大小写",
+        "重名",
+        "无匹配",
+        "name 非字符串"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "NOT-01",
+      "tool": "notes",
+      "behavior": "list",
+      "kind": "read",
+      "call": {
+        "name": "notes",
+        "arguments": {
+          "operation": "list",
+          "folderName": "${NOTES_FOLDER}",
+          "limit": 3,
+          "sortBy": "modificationDate",
+          "sortOrder": "desc",
+          "fromDate": "${FROM}",
+          "toDate": "${TO}",
+          "contentLimit": 200
+        }
+      },
+      "setup": "至少三条有不同创建/修改时间的受控笔记",
+      "steps": [
+        "调用列表",
+        "比对 ID、内容及归属",
+        "按元数据计算正确顺序"
+      ],
+      "expected": [
+        "真实 ID/时间/内容",
+        "筛选与条数准确",
+        "截断标志准确"
+      ],
+      "requiredVariants": [
+        "creationDate/modificationDate",
+        "asc/desc",
+        "不指定文件夹",
+        "日期边界",
+        "最近删除",
+        "预览截断",
+        "非法 limit/日期"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "NOT-02",
+      "tool": "notes",
+      "behavior": "search",
+      "kind": "read",
+      "call": {
+        "name": "notes",
+        "arguments": {
+          "operation": "search",
+          "searchText": "${RUN}",
+          "folderName": "${NOTES_FOLDER}",
+          "limit": 10,
+          "contentLimit": 100
+        }
+      },
+      "setup": "标题和正文分别含唯一关键词的笔记，含长正文样本",
+      "steps": [
+        "调用关键词搜索",
+        "比对预期 ID 集合",
+        "无匹配再查"
+      ],
+      "expected": [
+        "标题/正文命中正确",
+        "预览之外的关键词仍命中",
+        "无匹配不混淆权限失败"
+      ],
+      "requiredVariants": [
+        "标题",
+        "仅正文",
+        "超出预览范围",
+        "中文/引号/换行",
+        "日期/排序/文件夹筛选",
+        "无匹配"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "NOT-03",
+      "tool": "notes",
+      "behavior": "todos",
+      "kind": "read",
+      "call": {
+        "name": "notes",
+        "arguments": {
+          "operation": "todos",
+          "folderName": "${NOTES_FOLDER}",
+          "limit": 10,
+          "contentLimit": 100
+        }
+      },
+      "setup": "文本待办、已完成标记、普通列表、原生清单和长笔记反例",
+      "steps": [
+        "调用 todos",
+        "逐条核对任务及状态",
+        "比对无匹配说明"
+      ],
+      "expected": [
+        "未勾选文本标记正确",
+        "已完成/普通列表不误判",
+        "TODO 候选未核实",
+        "明确原生状态不可用"
+      ],
+      "requiredVariants": [
+        "[ ]/[x]",
+        "☐/☑",
+        "TODO/待办/未完成",
+        "任务在预览之外",
+        "先筛选后 limit",
+        "原生清单限制"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "NOT-04",
+      "tool": "notes",
+      "behavior": "create",
+      "kind": "write",
+      "call": {
+        "name": "notes",
+        "arguments": {
+          "operation": "create",
+          "title": "${RUN}-NOT-04",
+          "body": "中文 \"引号\"\n第二行 emoji 🍎",
+          "folderName": "${NOTES_FOLDER}"
+        }
+      },
+      "setup": "本轮专用文件夹已独立核实",
+      "steps": [
+        "MCP 创建",
+        "独立回读真实对象",
+        "MCP search/list 回读",
+        "登记 ID 待清理"
+      ],
+      "expected": [
+        "标题正文吻合",
+        "写入指定文件夹",
+        "没有误写业务文件夹"
+      ],
+      "requiredVariants": [
+        "指定文件夹",
+        "默认 Claude",
+        "不存在文件夹分支",
+        "空标题",
+        "中文/换行/引号/emoji",
+        "Node/Bun"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-01",
+      "tool": "messages",
+      "behavior": "read",
+      "kind": "read",
+      "call": {
+        "name": "messages",
+        "arguments": {
+          "operation": "read",
+          "phoneNumber": "${PHONE}",
+          "limit": 3
+        }
+      },
+      "setup": "受控接收端及已知会话样本，不使用虚构号码",
+      "steps": [
+        "MCP 读取",
+        "独立会话/数据库核对",
+        "核对数量、时间及发送方"
+      ],
+      "expected": [
+        "至少命中一个已知记录",
+        "内容/顺序/发送方正确",
+        "附件及链接样本吻合"
+      ],
+      "requiredVariants": [
+        "号码格式",
+        "limit",
+        "富文本",
+        "链接",
+        "附件",
+        "无会话",
+        "数据库无权限"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-02",
+      "tool": "messages",
+      "behavior": "unread",
+      "kind": "read",
+      "call": {
+        "name": "messages",
+        "arguments": {
+          "operation": "unread",
+          "limit": 3
+        }
+      },
+      "setup": "从受控端发送本轮入站信息并保持未读",
+      "steps": [
+        "记录未读基线",
+        "MCP 查询",
+        "核对集合及查询后状态"
+      ],
+      "expected": [
+        "包含已知未读记录",
+        "不返回已读记录",
+        "查询不意外标记已读"
+      ],
+      "requiredVariants": [
+        "有未读",
+        "零未读",
+        "limit",
+        "发送方/时间",
+        "权限错误"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-03",
+      "tool": "messages",
+      "behavior": "send",
+      "kind": "external-send",
+      "call": {
+        "name": "messages",
+        "arguments": {
+          "operation": "send",
+          "phoneNumber": "${PHONE}",
+          "message": "${RUN}-MSG-03 中文 \"引号\" 🍎"
+        }
+      },
+      "setup": "执行前用户指定可确认接收的 iMessage 地址",
+      "steps": [
+        "记录发送前状态",
+        "MCP 发送一次",
+        "本机记录回读",
+        "受控端确认收到内容和次数"
+      ],
+      "expected": [
+        "正确接收人收到唯一文本",
+        "本机发送记录吻合",
+        "无重复发送"
+      ],
+      "requiredVariants": [
+        "中文/换行/引号/emoji",
+        "空消息",
+        "缺/非法号码",
+        "发送失败后核实状态",
+        "Node/Bun"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-04",
+      "tool": "messages",
+      "behavior": "schedule",
+      "kind": "external-send",
+      "call": {
+        "name": "messages",
+        "arguments": {
+          "operation": "schedule",
+          "phoneNumber": "${PHONE}",
+          "message": "${RUN}-MSG-04",
+          "scheduledTime": "${SCHEDULED}"
+        }
+      },
+      "setup": "受控端已指定；SCHEDULED 为调用时未来约60秒；MCP 进程持续运行",
+      "steps": [
+        "MCP 排队并检查响应可序列化",
+        "到期前核对未提前发送",
+        "到期后回读本机记录并确认接收",
+        "另轮验证重启分支"
+      ],
+      "expected": [
+        "时间误差初始±15秒内触发",
+        "接收内容/次数吻合",
+        "队列成功不等于送达",
+        "重启丢失限制独立记录"
+      ],
+      "requiredVariants": [
+        "未来时间",
+        "过去时间",
+        "非法时间",
+        "进程重启",
+        "Node/Bun 定时器 ID"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "MAL-01",
+      "tool": "mail",
+      "behavior": "accounts",
+      "kind": "read",
+      "call": {
+        "name": "mail",
+        "arguments": {
+          "operation": "accounts"
+        }
+      },
+      "setup": "Mail 已配置；独立读取账户名基线",
+      "steps": [
+        "MCP 列账户",
+        "与基线比对"
+      ],
+      "expected": [
+        "真实账户集合吻合",
+        "没有固定占位账户"
+      ],
+      "requiredVariants": [
+        "单账户",
+        "多账户有条件时",
+        "无账户环境",
+        "授权错误"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "MAL-02",
+      "tool": "mail",
+      "behavior": "mailboxes",
+      "kind": "read",
+      "call": {
+        "name": "mail",
+        "arguments": {
+          "operation": "mailboxes",
+          "account": "${ACCOUNT}"
+        }
+      },
+      "setup": "实际账户含收件箱、嵌套目录；独立记录路径",
+      "steps": [
+        "MCP 查指定账户邮箱",
+        "不指定账户再查",
+        "独立比对路径及范围"
+      ],
+      "expected": [
+        "实际文件夹路径正确",
+        "子邮箱可见",
+        "错误账户失败"
+      ],
+      "requiredVariants": [
+        "指定/不指定账户",
+        "本地邮箱",
+        "嵌套路径",
+        "同名文件夹",
+        "不存在账户"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "MAL-03",
+      "tool": "mail",
+      "behavior": "latest",
+      "kind": "read",
+      "call": {
+        "name": "mail",
+        "arguments": {
+          "operation": "latest",
+          "account": "${ACCOUNT}",
+          "mailbox": "inbox",
+          "limit": 3
+        }
+      },
+      "setup": "已知收件时间不同的受控邮件",
+      "steps": [
+        "MCP 查询最近3封",
+        "独立比对时间及 ID",
+        "改变账户/邮箱再查"
+      ],
+      "expected": [
+        "按收件时间倒序",
+        "返回真实 ID及内容",
+        "limit/范围正确"
+      ],
+      "requiredVariants": [
+        "跨账户",
+        "指定账户",
+        "inbox/all/路径",
+        "日期范围",
+        "空箱",
+        "非法参数"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "MAL-04",
+      "tool": "mail",
+      "behavior": "unread",
+      "kind": "read",
+      "call": {
+        "name": "mail",
+        "arguments": {
+          "operation": "unread",
+          "account": "${ACCOUNT}",
+          "mailbox": "${MAILBOX}",
+          "limit": 3
+        }
+      },
+      "setup": "同一范围有已读和未读的受控邮件",
+      "steps": [
+        "记录未读状态",
+        "MCP 查询",
+        "独立核对记录及查询后状态"
+      ],
+      "expected": [
+        "只返回未读",
+        "查询不意外改为已读",
+        "数量/排序正确"
+      ],
+      "requiredVariants": [
+        "完成状态反例",
+        "账户/邮箱筛选",
+        "时间筛选",
+        "零未读",
+        "limit"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "MAL-05",
+      "tool": "mail",
+      "behavior": "search",
+      "kind": "read",
+      "call": {
+        "name": "mail",
+        "arguments": {
+          "operation": "search",
+          "searchTerm": "${RUN}",
+          "account": "${ACCOUNT}",
+          "mailbox": "all",
+          "searchIn": "subject",
+          "fromDate": "${FROM}",
+          "toDate": "${TO}",
+          "limit": 20
+        }
+      },
+      "setup": "标题关键词、仅正文关键词、收件时间边界及嵌套邮箱样本",
+      "steps": [
+        "按 subject 查",
+        "按 all 查",
+        "与受控样本集合比对",
+        "复测昨天发票场景"
+      ],
+      "expected": [
+        "完整匹配集合正确",
+        "FROM含/TO不含",
+        "父目录无消息时仍查子箱",
+        "错误不伪装成无匹配"
+      ],
+      "requiredVariants": [
+        "subject/all",
+        "仅正文及超出预览",
+        "昨天发票",
+        "跨账户",
+        "inbox/all/路径",
+        "日期边界",
+        "中文/引号/换行",
+        "无匹配/错误邮箱"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "MAL-06",
+      "tool": "mail",
+      "behavior": "send",
+      "kind": "external-send",
+      "call": {
+        "name": "mail",
+        "arguments": {
+          "operation": "send",
+          "to": "${MAIL_TO}",
+          "subject": "${RUN}-MAL-06",
+          "body": "中文 \"引号\"\n第二行 🍎",
+          "cc": "${MAIL_CC}",
+          "bcc": "${MAIL_BCC}"
+        }
+      },
+      "setup": "执行前用户指定 TO/CC/BCC 受控接收端，均可核对邮件头",
+      "steps": [
+        "MCP 发送一次",
+        "已发送/发件箱回读",
+        "各接收端确认",
+        "核对 BCC 隐藏及内容"
+      ],
+      "expected": [
+        "三个目标按要求收到",
+        "正文/主题一致",
+        "其他接收端不能看到 BCC",
+        "无重复发送"
+      ],
+      "requiredVariants": [
+        "仅TO",
+        "CC",
+        "BCC",
+        "中文/换行/引号/emoji",
+        "缺必填",
+        "发送失败",
+        "Node/Bun"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "REM-01",
+      "tool": "reminders",
+      "behavior": "list",
+      "kind": "read",
+      "call": {
+        "name": "reminders",
+        "arguments": {
+          "operation": "list",
+          "listName": "${REMINDER_LIST}",
+          "completed": false,
+          "limit": 10
+        }
+      },
+      "setup": "独立准备两清单、已完成/未完成、有日期/无日期事项",
+      "steps": [
+        "MCP 查询未完成",
+        "切换 completed 与清单条件",
+        "独立比对集合"
+      ],
+      "expected": [
+        "清单及事项真实 ID",
+        "completed 筛选准确",
+        "数量/字段/日期正确"
+      ],
+      "requiredVariants": [
+        "completed true/false/省略",
+        "listName/省略",
+        "limit",
+        "零匹配",
+        "错误清单"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "REM-02",
+      "tool": "reminders",
+      "behavior": "search",
+      "kind": "read",
+      "call": {
+        "name": "reminders",
+        "arguments": {
+          "operation": "search",
+          "searchText": "${RUN}",
+          "listName": "${REMINDER_LIST}",
+          "completed": false,
+          "limit": 10
+        }
+      },
+      "setup": "标题及仅备注分别含标记的受控事项",
+      "steps": [
+        "MCP 搜索",
+        "核对匹配与完成状态",
+        "查无匹配关键词"
+      ],
+      "expected": [
+        "标题/备注匹配集合准确",
+        "清单及状态筛选生效",
+        "真实 ID"
+      ],
+      "requiredVariants": [
+        "标题",
+        "仅备注",
+        "中文/特殊字符",
+        "无匹配",
+        "completed/limit/listName"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "REM-03",
+      "tool": "reminders",
+      "behavior": "listById",
+      "kind": "read",
+      "call": {
+        "name": "reminders",
+        "arguments": {
+          "operation": "listById",
+          "listId": "${LIST_ID}",
+          "completed": false,
+          "limit": 10,
+          "props": [
+            "id",
+            "name",
+            "completed",
+            "listName"
+          ]
+        }
+      },
+      "setup": "真实专用清单 ID；另一清单存在反例",
+      "steps": [
+        "MCP 按 ID 查询",
+        "核对清单范围及字段集合",
+        "不存在 ID/未知字段再查"
+      ],
+      "expected": [
+        "不混入其他清单",
+        "props 精确生效",
+        "真实完成状态",
+        "错误 ID/属性明确报错"
+      ],
+      "requiredVariants": [
+        "省略props",
+        "指定props",
+        "不存在ID",
+        "继承属性/未知字段",
+        "completed/limit"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "REM-04",
+      "tool": "reminders",
+      "behavior": "open",
+      "kind": "ui",
+      "call": {
+        "name": "reminders",
+        "arguments": {
+          "operation": "open",
+          "searchText": "${RUN}-REM-04"
+        }
+      },
+      "setup": "已知匹配事项与无匹配反例",
+      "steps": [
+        "记录打开前界面",
+        "MCP open",
+        "检查定位目标及返回记录"
+      ],
+      "expected": [
+        "应用打开且目标事项被定位",
+        "无匹配明确说明",
+        "仅 activate 不算目标定位通过"
+      ],
+      "requiredVariants": [
+        "有匹配",
+        "多个匹配",
+        "无匹配",
+        "中文"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "REM-05",
+      "tool": "reminders",
+      "behavior": "create",
+      "kind": "write",
+      "call": {
+        "name": "reminders",
+        "arguments": {
+          "operation": "create",
+          "name": "${RUN}-REM-05",
+          "listName": "${REMINDER_LIST}",
+          "notes": "${RUN} 中文备注",
+          "dueDate": "${DUE}"
+        }
+      },
+      "setup": "确认专用目标清单；先处理已知写错清单风险，或在隔离环境复现",
+      "steps": [
+        "MCP 创建",
+        "独立核对目标清单/全部字段/真实ID",
+        "MCP search/listById 回读",
+        "登记实际对象供清理"
+      ],
+      "expected": [
+        "真实 ID 非占位",
+        "指定清单准确",
+        "备注/截止时间实际写入",
+        "返回与实际一致"
+      ],
+      "requiredVariants": [
+        "指定/默认清单",
+        "备注",
+        "到期时间及时区",
+        "空标题/非法日期",
+        "Node/Bun"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CAL-01",
+      "tool": "calendar",
+      "behavior": "list",
+      "kind": "read",
+      "call": {
+        "name": "calendar",
+        "arguments": {
+          "operation": "list",
+          "fromDate": "${FROM}",
+          "toDate": "${TO}",
+          "limit": 10
+        }
+      },
+      "setup": "本轮专用日历有已知窗口内/外事件",
+      "steps": [
+        "MCP 查询",
+        "对照独立事件列表",
+        "检查 ID/时间/日历/数量"
+      ],
+      "expected": [
+        "真实窗口内事件",
+        "窗口外排除",
+        "无 dummy-event 占位"
+      ],
+      "requiredVariants": [
+        "日期窗口",
+        "午夜/时区",
+        "limit",
+        "全天",
+        "无匹配",
+        "非法参数"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CAL-02",
+      "tool": "calendar",
+      "behavior": "search",
+      "kind": "read",
+      "call": {
+        "name": "calendar",
+        "arguments": {
+          "operation": "search",
+          "searchText": "${RUN}",
+          "fromDate": "${FROM}",
+          "toDate": "${TO}",
+          "limit": 10
+        }
+      },
+      "setup": "标题/地点/备注分别含标记的已知事件",
+      "steps": [
+        "MCP 搜索各字段",
+        "与独立集合核对",
+        "查无匹配"
+      ],
+      "expected": [
+        "已知正例命中",
+        "范围/数量正确",
+        "真实字段及 ID"
+      ],
+      "requiredVariants": [
+        "标题",
+        "地点",
+        "备注",
+        "日期窗口",
+        "无匹配",
+        "中文/引号"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CAL-03",
+      "tool": "calendar",
+      "behavior": "open",
+      "kind": "ui",
+      "call": {
+        "name": "calendar",
+        "arguments": {
+          "operation": "open",
+          "eventId": "${EVENT_ID}"
+        }
+      },
+      "setup": "独立确认的真实受控事件 ID",
+      "steps": [
+        "记录界面基线",
+        "MCP 打开",
+        "检查定位",
+        "错误 ID 再测"
+      ],
+      "expected": [
+        "显示对应事件",
+        "不存在ID明确失败",
+        "只激活App不能替代定位"
+      ],
+      "requiredVariants": [
+        "真实ID",
+        "不存在ID",
+        "空/错误类型"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CAL-04",
+      "tool": "calendar",
+      "behavior": "create",
+      "kind": "write",
+      "call": {
+        "name": "calendar",
+        "arguments": {
+          "operation": "create",
+          "title": "${RUN}-CAL-04",
+          "startDate": "${START}",
+          "endDate": "${END}",
+          "location": "测试地点",
+          "notes": "${RUN} 中文备注",
+          "isAllDay": false,
+          "calendarName": "${CALENDAR}"
+        }
+      },
+      "setup": "未来日期和专用日历已核实",
+      "steps": [
+        "MCP 创建",
+        "独立回读全部字段",
+        "MCP list/search 对照",
+        "登记真实ID"
+      ],
+      "expected": [
+        "指定日历真实事件",
+        "标题/地点/备注/时间一致",
+        "全天标志准确",
+        "真实ID"
+      ],
+      "requiredVariants": [
+        "普通/全天",
+        "指定/默认日历",
+        "不存在日历回退",
+        "跨午夜/时区",
+        "结束早于开始",
+        "非法日期",
+        "特殊字符",
+        "Node/Bun"
+      ],
+      "status": "NOT_RUN"
+    }
+  ]
+}

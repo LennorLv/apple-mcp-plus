@@ -1,0 +1,508 @@
+{
+  "version": 1,
+  "designedOn": "2026-10-11",
+  "scope": "Apple MCP Plus: 17 active behavior cases, Maps removed",
+  "cases": [
+    {
+      "id": "EK-CONTACTS-STATUS",
+      "tool": "contacts",
+      "behavior": "status",
+      "kind": "read",
+      "call": {
+        "name": "contacts",
+        "arguments": {
+          "operation": "status"
+        }
+      },
+      "setup": "EventKit helper 已构建；需要数据的案例绑定本轮隔离样本及准确 ID；不修改个人配置。",
+      "steps": [
+        "通过 MCP SDK 调用",
+        "核对结构化结果、权限/ID 类型及独立基准",
+        "将失败、修复与复测追加记录"
+      ],
+      "expected": [
+        "返回对应工具有效权限状态",
+        "permissionProbePrompts=false；不启动目标应用或弹授权",
+        "未运行/不可读/未知状态不伪装成已授权"
+      ],
+      "requiredVariants": [
+        "Node/Bun",
+        "目标未运行",
+        "权限种类区分"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EK-CONTACTS-DIAGNOSE",
+      "tool": "contacts",
+      "behavior": "diagnose",
+      "kind": "read",
+      "call": {
+        "name": "contacts",
+        "arguments": {
+          "operation": "diagnose"
+        }
+      },
+      "setup": "EventKit helper 已构建；需要数据的案例绑定本轮隔离样本及准确 ID；不修改个人配置。",
+      "steps": [
+        "通过 MCP SDK 调用",
+        "核对结构化结果、权限/ID 类型及独立基准",
+        "将失败、修复与复测追加记录"
+      ],
+      "expected": [
+        "返回对应工具有效权限状态",
+        "permissionProbePrompts=false；不启动目标应用或弹授权",
+        "未运行/不可读/未知状态不伪装成已授权"
+      ],
+      "requiredVariants": [
+        "Node/Bun",
+        "目标未运行",
+        "权限种类区分"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EK-NOTES-STATUS",
+      "tool": "notes",
+      "behavior": "status",
+      "kind": "read",
+      "call": {
+        "name": "notes",
+        "arguments": {
+          "operation": "status"
+        }
+      },
+      "setup": "EventKit helper 已构建；需要数据的案例绑定本轮隔离样本及准确 ID；不修改个人配置。",
+      "steps": [
+        "通过 MCP SDK 调用",
+        "核对结构化结果、权限/ID 类型及独立基准",
+        "将失败、修复与复测追加记录"
+      ],
+      "expected": [
+        "返回对应工具有效权限状态",
+        "permissionProbePrompts=false；不启动目标应用或弹授权",
+        "未运行/不可读/未知状态不伪装成已授权"
+      ],
+      "requiredVariants": [
+        "Node/Bun",
+        "目标未运行",
+        "权限种类区分"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EK-NOTES-DIAGNOSE",
+      "tool": "notes",
+      "behavior": "diagnose",
+      "kind": "read",
+      "call": {
+        "name": "notes",
+        "arguments": {
+          "operation": "diagnose"
+        }
+      },
+      "setup": "EventKit helper 已构建；需要数据的案例绑定本轮隔离样本及准确 ID；不修改个人配置。",
+      "steps": [
+        "通过 MCP SDK 调用",
+        "核对结构化结果、权限/ID 类型及独立基准",
+        "将失败、修复与复测追加记录"
+      ],
+      "expected": [
+        "返回对应工具有效权限状态",
+        "permissionProbePrompts=false；不启动目标应用或弹授权",
+        "未运行/不可读/未知状态不伪装成已授权"
+      ],
+      "requiredVariants": [
+        "Node/Bun",
+        "目标未运行",
+        "权限种类区分"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EK-MESSAGES-STATUS",
+      "tool": "messages",
+      "behavior": "status",
+      "kind": "read",
+      "call": {
+        "name": "messages",
+        "arguments": {
+          "operation": "status"
+        }
+      },
+      "setup": "EventKit helper 已构建；需要数据的案例绑定本轮隔离样本及准确 ID；不修改个人配置。",
+      "steps": [
+        "通过 MCP SDK 调用",
+        "核对结构化结果、权限/ID 类型及独立基准",
+        "将失败、修复与复测追加记录"
+      ],
+      "expected": [
+        "返回对应工具有效权限状态",
+        "permissionProbePrompts=false；不启动目标应用或弹授权",
+        "未运行/不可读/未知状态不伪装成已授权"
+      ],
+      "requiredVariants": [
+        "Node/Bun",
+        "目标未运行",
+        "权限种类区分"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EK-MESSAGES-DIAGNOSE",
+      "tool": "messages",
+      "behavior": "diagnose",
+      "kind": "read",
+      "call": {
+        "name": "messages",
+        "arguments": {
+          "operation": "diagnose"
+        }
+      },
+      "setup": "EventKit helper 已构建；需要数据的案例绑定本轮隔离样本及准确 ID；不修改个人配置。",
+      "steps": [
+        "通过 MCP SDK 调用",
+        "核对结构化结果、权限/ID 类型及独立基准",
+        "将失败、修复与复测追加记录"
+      ],
+      "expected": [
+        "返回对应工具有效权限状态",
+        "permissionProbePrompts=false；不启动目标应用或弹授权",
+        "未运行/不可读/未知状态不伪装成已授权"
+      ],
+      "requiredVariants": [
+        "Node/Bun",
+        "目标未运行",
+        "权限种类区分"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EK-MAIL-STATUS",
+      "tool": "mail",
+      "behavior": "status",
+      "kind": "read",
+      "call": {
+        "name": "mail",
+        "arguments": {
+          "operation": "status"
+        }
+      },
+      "setup": "EventKit helper 已构建；需要数据的案例绑定本轮隔离样本及准确 ID；不修改个人配置。",
+      "steps": [
+        "通过 MCP SDK 调用",
+        "核对结构化结果、权限/ID 类型及独立基准",
+        "将失败、修复与复测追加记录"
+      ],
+      "expected": [
+        "返回对应工具有效权限状态",
+        "permissionProbePrompts=false；不启动目标应用或弹授权",
+        "未运行/不可读/未知状态不伪装成已授权"
+      ],
+      "requiredVariants": [
+        "Node/Bun",
+        "目标未运行",
+        "权限种类区分"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EK-MAIL-DIAGNOSE",
+      "tool": "mail",
+      "behavior": "diagnose",
+      "kind": "read",
+      "call": {
+        "name": "mail",
+        "arguments": {
+          "operation": "diagnose"
+        }
+      },
+      "setup": "EventKit helper 已构建；需要数据的案例绑定本轮隔离样本及准确 ID；不修改个人配置。",
+      "steps": [
+        "通过 MCP SDK 调用",
+        "核对结构化结果、权限/ID 类型及独立基准",
+        "将失败、修复与复测追加记录"
+      ],
+      "expected": [
+        "返回对应工具有效权限状态",
+        "permissionProbePrompts=false；不启动目标应用或弹授权",
+        "未运行/不可读/未知状态不伪装成已授权"
+      ],
+      "requiredVariants": [
+        "Node/Bun",
+        "目标未运行",
+        "权限种类区分"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EK-REMINDERS-STATUS",
+      "tool": "reminders",
+      "behavior": "status",
+      "kind": "read",
+      "call": {
+        "name": "reminders",
+        "arguments": {
+          "operation": "status"
+        }
+      },
+      "setup": "EventKit helper 已构建；需要数据的案例绑定本轮隔离样本及准确 ID；不修改个人配置。",
+      "steps": [
+        "通过 MCP SDK 调用",
+        "核对结构化结果、权限/ID 类型及独立基准",
+        "将失败、修复与复测追加记录"
+      ],
+      "expected": [
+        "返回对应工具有效权限状态",
+        "permissionProbePrompts=false；不启动目标应用或弹授权",
+        "未运行/不可读/未知状态不伪装成已授权"
+      ],
+      "requiredVariants": [
+        "Node/Bun",
+        "目标未运行",
+        "权限种类区分"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EK-REMINDERS-DIAGNOSE",
+      "tool": "reminders",
+      "behavior": "diagnose",
+      "kind": "read",
+      "call": {
+        "name": "reminders",
+        "arguments": {
+          "operation": "diagnose"
+        }
+      },
+      "setup": "EventKit helper 已构建；需要数据的案例绑定本轮隔离样本及准确 ID；不修改个人配置。",
+      "steps": [
+        "通过 MCP SDK 调用",
+        "核对结构化结果、权限/ID 类型及独立基准",
+        "将失败、修复与复测追加记录"
+      ],
+      "expected": [
+        "返回对应工具有效权限状态",
+        "permissionProbePrompts=false；不启动目标应用或弹授权",
+        "未运行/不可读/未知状态不伪装成已授权"
+      ],
+      "requiredVariants": [
+        "Node/Bun",
+        "目标未运行",
+        "权限种类区分"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EK-CALENDAR-STATUS",
+      "tool": "calendar",
+      "behavior": "status",
+      "kind": "read",
+      "call": {
+        "name": "calendar",
+        "arguments": {
+          "operation": "status"
+        }
+      },
+      "setup": "EventKit helper 已构建；需要数据的案例绑定本轮隔离样本及准确 ID；不修改个人配置。",
+      "steps": [
+        "通过 MCP SDK 调用",
+        "核对结构化结果、权限/ID 类型及独立基准",
+        "将失败、修复与复测追加记录"
+      ],
+      "expected": [
+        "返回对应工具有效权限状态",
+        "permissionProbePrompts=false；不启动目标应用或弹授权",
+        "未运行/不可读/未知状态不伪装成已授权"
+      ],
+      "requiredVariants": [
+        "Node/Bun",
+        "目标未运行",
+        "权限种类区分"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EK-CALENDAR-DIAGNOSE",
+      "tool": "calendar",
+      "behavior": "diagnose",
+      "kind": "read",
+      "call": {
+        "name": "calendar",
+        "arguments": {
+          "operation": "diagnose"
+        }
+      },
+      "setup": "EventKit helper 已构建；需要数据的案例绑定本轮隔离样本及准确 ID；不修改个人配置。",
+      "steps": [
+        "通过 MCP SDK 调用",
+        "核对结构化结果、权限/ID 类型及独立基准",
+        "将失败、修复与复测追加记录"
+      ],
+      "expected": [
+        "返回对应工具有效权限状态",
+        "permissionProbePrompts=false；不启动目标应用或弹授权",
+        "未运行/不可读/未知状态不伪装成已授权"
+      ],
+      "requiredVariants": [
+        "Node/Bun",
+        "目标未运行",
+        "权限种类区分"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EK-REMINDERS-AUTHORIZE",
+      "tool": "reminders",
+      "behavior": "authorize",
+      "kind": "authorization",
+      "call": {
+        "name": "reminders",
+        "arguments": {
+          "operation": "authorize",
+          "backend": "eventkit"
+        }
+      },
+      "setup": "EventKit helper 已构建；需要数据的案例绑定本轮隔离样本及准确 ID；不修改个人配置。",
+      "steps": [
+        "通过 MCP SDK 调用",
+        "核对结构化结果、权限/ID 类型及独立基准",
+        "将失败、修复与复测追加记录"
+      ],
+      "expected": [
+        "显式申请该类型 EventKit 权限",
+        "已授权时无重复弹窗",
+        "拒绝与超时返回明确错误"
+      ],
+      "requiredVariants": [
+        "已授权",
+        "首次授权",
+        "拒绝/超时控制路径"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EK-CALENDAR-AUTHORIZE",
+      "tool": "calendar",
+      "behavior": "authorize",
+      "kind": "authorization",
+      "call": {
+        "name": "calendar",
+        "arguments": {
+          "operation": "authorize",
+          "backend": "eventkit"
+        }
+      },
+      "setup": "EventKit helper 已构建；需要数据的案例绑定本轮隔离样本及准确 ID；不修改个人配置。",
+      "steps": [
+        "通过 MCP SDK 调用",
+        "核对结构化结果、权限/ID 类型及独立基准",
+        "将失败、修复与复测追加记录"
+      ],
+      "expected": [
+        "显式申请该类型 EventKit 权限",
+        "已授权时无重复弹窗",
+        "拒绝与超时返回明确错误"
+      ],
+      "requiredVariants": [
+        "已授权",
+        "首次授权",
+        "拒绝/超时控制路径"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EK-REMINDERS-LISTS",
+      "tool": "reminders",
+      "behavior": "lists",
+      "kind": "read",
+      "call": {
+        "name": "reminders",
+        "arguments": {
+          "operation": "lists",
+          "backend": "eventkit"
+        }
+      },
+      "setup": "EventKit helper 已构建；需要数据的案例绑定本轮隔离样本及准确 ID；不修改个人配置。",
+      "steps": [
+        "通过 MCP SDK 调用",
+        "核对结构化结果、权限/ID 类型及独立基准",
+        "将失败、修复与复测追加记录"
+      ],
+      "expected": [
+        "返回准确清单 ID、所属 source 与可写性",
+        "不依赖提醒事项前台界面"
+      ],
+      "requiredVariants": [
+        "Node/Bun",
+        "权限不足错误"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EK-CALENDAR-CALENDARS",
+      "tool": "calendar",
+      "behavior": "calendars",
+      "kind": "read",
+      "call": {
+        "name": "calendar",
+        "arguments": {
+          "operation": "calendars",
+          "backend": "eventkit",
+          "calendarIds": [
+            "${CALENDAR_EVENTKIT_ID}"
+          ]
+        }
+      },
+      "setup": "EventKit helper 已构建；需要数据的案例绑定本轮隔离样本及准确 ID；不修改个人配置。",
+      "steps": [
+        "通过 MCP SDK 调用",
+        "核对结构化结果、权限/ID 类型及独立基准",
+        "将失败、修复与复测追加记录"
+      ],
+      "expected": [
+        "返回选定日历准确 ID、source 与可写性",
+        "失效 ID 返回 not_found"
+      ],
+      "requiredVariants": [
+        "Node/Bun",
+        "多日历筛选"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EK-CALENDAR-GETBYID",
+      "tool": "calendar",
+      "behavior": "getById",
+      "kind": "read",
+      "call": {
+        "name": "calendar",
+        "arguments": {
+          "operation": "getById",
+          "backend": "eventkit",
+          "calendarId": "${CALENDAR_EVENTKIT_ID}",
+          "eventId": "${EVENTKIT_EVENT_ID}",
+          "occurrenceDate": "${EVENT_OCCURRENCE_DATE}"
+        }
+      },
+      "setup": "EventKit helper 已构建；需要数据的案例绑定本轮隔离样本及准确 ID；不修改个人配置。",
+      "steps": [
+        "通过 MCP SDK 调用",
+        "核对结构化结果、权限/ID 类型及独立基准",
+        "将失败、修复与复测追加记录"
+      ],
+      "expected": [
+        "准确返回指定实例",
+        "重复事件须明确 occurrenceDate",
+        "错误日历范围拒绝返回对象"
+      ],
+      "requiredVariants": [
+        "普通事件",
+        "重复实例",
+        "ID 失效",
+        "错误范围"
+      ],
+      "status": "NOT_RUN"
+    }
+  ]
+}

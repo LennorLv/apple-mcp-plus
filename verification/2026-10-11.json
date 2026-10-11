@@ -1,0 +1,366 @@
+{
+  "verifiedOn": "2026-10-11",
+  "platform": {
+    "os": "macOS 27.0",
+    "architecture": "arm64",
+    "node": "24.21.0",
+    "bun": "1.4.3"
+  },
+  "scope": "protocol and read-only smoke; not full acceptance",
+  "source": {
+    "algorithm": "sha256",
+    "sourceFiles": [
+      "index.ts",
+      "tools.ts",
+      "utils/calendar.ts",
+      "utils/contacts.ts",
+      "utils/diagnostics.ts",
+      "utils/eventkit.ts",
+      "utils/jxa-query.ts",
+      "utils/mail.ts",
+      "utils/message.ts",
+      "utils/notes-checklist.ts",
+      "utils/notes.ts",
+      "utils/query-api.ts",
+      "utils/reminders.ts",
+      "native/EventKitHelper.swift",
+      "native/Info.plist"
+    ],
+    "sourceSha256": "4c567b4215c75fc56f9e3ce2aa3a87fd843224f1c66765e9a8abb965d4a6b7bd"
+  },
+  "frozenDependencies": {
+    "mcpSdk": "1.5.0",
+    "jxa": "1.3.6",
+    "zod": "3.24.2",
+    "typescript": "5.7.3"
+  },
+  "syntheticRegression": {
+    "passed": 36,
+    "failed": 0,
+    "assertions": 175
+  },
+  "nativeSelfTest": {
+    "passed": 4
+  },
+  "designCoverage": {
+    "tools": 6,
+    "behaviors": 42,
+    "requiredVariants": 190,
+    "functionalTestsExecuted": 0
+  },
+  "realReads": {
+    "node": {
+      "counts": {
+        "PASS": 35,
+        "PARTIAL": 1,
+        "FAIL": 0,
+        "SKIP": 0
+      },
+      "checks": [
+        {
+          "id": "protocol.initialize-ping",
+          "status": "PASS"
+        },
+        {
+          "id": "protocol.listTools",
+          "status": "PASS"
+        },
+        {
+          "id": "contacts.status",
+          "status": "PASS"
+        },
+        {
+          "id": "contacts.diagnose",
+          "status": "PASS"
+        },
+        {
+          "id": "notes.status",
+          "status": "PASS"
+        },
+        {
+          "id": "notes.diagnose",
+          "status": "PASS"
+        },
+        {
+          "id": "messages.status",
+          "status": "PASS"
+        },
+        {
+          "id": "messages.diagnose",
+          "status": "PASS"
+        },
+        {
+          "id": "mail.status",
+          "status": "PASS"
+        },
+        {
+          "id": "mail.diagnose",
+          "status": "PASS"
+        },
+        {
+          "id": "reminders.status",
+          "status": "PASS"
+        },
+        {
+          "id": "reminders.diagnose",
+          "status": "PASS"
+        },
+        {
+          "id": "calendar.status",
+          "status": "PASS"
+        },
+        {
+          "id": "calendar.diagnose",
+          "status": "PASS"
+        },
+        {
+          "id": "contacts.list",
+          "status": "PASS"
+        },
+        {
+          "id": "contacts.search",
+          "status": "PASS"
+        },
+        {
+          "id": "notes.list",
+          "status": "PASS"
+        },
+        {
+          "id": "notes.search",
+          "status": "PASS"
+        },
+        {
+          "id": "notes.todos",
+          "status": "PARTIAL"
+        },
+        {
+          "id": "messages.unread",
+          "status": "PASS"
+        },
+        {
+          "id": "messages.read",
+          "status": "PASS"
+        },
+        {
+          "id": "mail.accounts",
+          "status": "PASS"
+        },
+        {
+          "id": "mail.mailboxes",
+          "status": "PASS"
+        },
+        {
+          "id": "mail.latest",
+          "status": "PASS"
+        },
+        {
+          "id": "mail.unread",
+          "status": "PASS"
+        },
+        {
+          "id": "mail.search",
+          "status": "PASS"
+        },
+        {
+          "id": "reminders.lists",
+          "status": "PASS"
+        },
+        {
+          "id": "reminders.list.eventkit",
+          "status": "PASS"
+        },
+        {
+          "id": "reminders.search.eventkit",
+          "status": "PASS"
+        },
+        {
+          "id": "reminders.listById.eventkit",
+          "status": "PASS"
+        },
+        {
+          "id": "reminders.list.jxa",
+          "status": "PASS"
+        },
+        {
+          "id": "calendar.calendars",
+          "status": "PASS"
+        },
+        {
+          "id": "calendar.list.eventkit",
+          "status": "PASS"
+        },
+        {
+          "id": "calendar.search.eventkit",
+          "status": "PASS"
+        },
+        {
+          "id": "calendar.getById",
+          "status": "PASS"
+        },
+        {
+          "id": "calendar.list.jxa",
+          "status": "PASS"
+        }
+      ]
+    },
+    "bun": {
+      "counts": {
+        "PASS": 35,
+        "PARTIAL": 1,
+        "FAIL": 0,
+        "SKIP": 0
+      },
+      "checks": [
+        {
+          "id": "protocol.initialize-ping",
+          "status": "PASS"
+        },
+        {
+          "id": "protocol.listTools",
+          "status": "PASS"
+        },
+        {
+          "id": "contacts.status",
+          "status": "PASS"
+        },
+        {
+          "id": "contacts.diagnose",
+          "status": "PASS"
+        },
+        {
+          "id": "notes.status",
+          "status": "PASS"
+        },
+        {
+          "id": "notes.diagnose",
+          "status": "PASS"
+        },
+        {
+          "id": "messages.status",
+          "status": "PASS"
+        },
+        {
+          "id": "messages.diagnose",
+          "status": "PASS"
+        },
+        {
+          "id": "mail.status",
+          "status": "PASS"
+        },
+        {
+          "id": "mail.diagnose",
+          "status": "PASS"
+        },
+        {
+          "id": "reminders.status",
+          "status": "PASS"
+        },
+        {
+          "id": "reminders.diagnose",
+          "status": "PASS"
+        },
+        {
+          "id": "calendar.status",
+          "status": "PASS"
+        },
+        {
+          "id": "calendar.diagnose",
+          "status": "PASS"
+        },
+        {
+          "id": "contacts.list",
+          "status": "PASS"
+        },
+        {
+          "id": "contacts.search",
+          "status": "PASS"
+        },
+        {
+          "id": "notes.list",
+          "status": "PASS"
+        },
+        {
+          "id": "notes.search",
+          "status": "PASS"
+        },
+        {
+          "id": "notes.todos",
+          "status": "PARTIAL"
+        },
+        {
+          "id": "messages.unread",
+          "status": "PASS"
+        },
+        {
+          "id": "messages.read",
+          "status": "PASS"
+        },
+        {
+          "id": "mail.accounts",
+          "status": "PASS"
+        },
+        {
+          "id": "mail.mailboxes",
+          "status": "PASS"
+        },
+        {
+          "id": "mail.latest",
+          "status": "PASS"
+        },
+        {
+          "id": "mail.unread",
+          "status": "PASS"
+        },
+        {
+          "id": "mail.search",
+          "status": "PASS"
+        },
+        {
+          "id": "reminders.lists",
+          "status": "PASS"
+        },
+        {
+          "id": "reminders.list.eventkit",
+          "status": "PASS"
+        },
+        {
+          "id": "reminders.search.eventkit",
+          "status": "PASS"
+        },
+        {
+          "id": "reminders.listById.eventkit",
+          "status": "PASS"
+        },
+        {
+          "id": "reminders.list.jxa",
+          "status": "PASS"
+        },
+        {
+          "id": "calendar.calendars",
+          "status": "PASS"
+        },
+        {
+          "id": "calendar.list.eventkit",
+          "status": "PASS"
+        },
+        {
+          "id": "calendar.search.eventkit",
+          "status": "PASS"
+        },
+        {
+          "id": "calendar.getById",
+          "status": "PASS"
+        },
+        {
+          "id": "calendar.list.jxa",
+          "status": "PASS"
+        }
+      ]
+    }
+  },
+  "notes": [
+    "notes.todos is PARTIAL for locally unavailable note data; no guessed checklist state",
+    "Writes, opens and sends were not rerun for publication",
+    "Lock-screen operation is not certified"
+  ]
+}
